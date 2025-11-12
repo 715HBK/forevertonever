@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>We Were Infinite</title>
+
     <style>
         *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
         body { 
@@ -66,7 +67,6 @@
                 -3px 3px 0 #fff, 3px 3px 0 #fff,
                 -2px 0 0 #fff, 2px 0 0 #fff,
                 0 -2px 0 #fff, 0 2px 0 #fff,
-
                 0 0 20px rgba(255,105,180,0.5); }
             50% { text-shadow: 
                 -3px -3px 0 #fff, 3px -3px 0 #fff,
@@ -115,7 +115,7 @@
             color: #ff69b4;
             font-weight: bold;
         }
-        .input-section input::placeholder { color: #ff99cc; }
+        .input-section input::placeholder { color:#ff99cc; }
         .input-section button {
             padding: 16px 32px;
             background: #ff69b4;
@@ -126,9 +126,9 @@
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
         }
-        .input-section button:hover { background: #ff1493; transform: scale(1.05); }
+        .input-section button:hover { background:#ff1493; transform:scale(1.05); }
 
-        .result { margin-top: 2rem; text-align: center; min-height: 80px; }
+        .result { margin-top: 2rem; text-align: center; min-height: 80px; font-size:1.6rem; font-weight:bold; color:#ff69b4; }
         .broken-heart {
             display: none;
             max-width: 240px;
@@ -137,11 +137,121 @@
             box-shadow: 0 8px 20px rgba(255,105,180,0.3);
             animation: fadeIn 1.2s ease-out;
         }
+        @keyframes fadeIn { from{opacity:0;transform:scale(0.8);} to{opacity:1;transform:scale(1);} }
 
-        /* Healing Particles */
         .healing-particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 999;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 6px; height: 6px;
+            background: #ff69b4;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 4s infinite ease-out;
+        }
+        @keyframes particleFloat {
+            0%   { transform: translateY(0) scale(0); opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 0; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="infinite-title">We Were Infinite</div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Will we be together forever?</h1>
+        <p>Type your question and let the universe answer…</p>
+    </section>
+
+    <section class="input-section">
+        <input type="text" id="question" placeholder="Ask anything…" autocomplete="off">
+        <button id="askBtn">Ask</button>
+    </section>
+
+    <div class="result" id="answer">?</div>
+    <img src="/forevertonever/broken-heart.png" alt="Broken Heart" class="broken-heart" id="brokenHeart">
+
+    <div class="healing-particles" id="particles"></div>
+</div>
+
+<script>
+    const answers = [
+        "Forever", "Never", "Ask again later", "Maybe",
+        "Yes", "No", "Definitely", "Not today"
+    ];
+
+    const askBtn    = document.getElementById('askBtn');
+    const question  = document.getElementById('question');
+    const answer    = document.getElementById('answer');
+    const heart     = document.getElementById('brokenHeart');
+    const particles = document.getElementById('particles');
+
+    askBtn.addEventListener('click', giveAnswer);
+    question.addEventListener('keypress', e => { if (e.key === 'Enter') giveAnswer(); });
+
+    function giveAnswer() {
+        const q = question.value.trim();
+        if (!q) {
+            answer.textContent = "Please ask a question…";
+            return;
+        }
+
+        const result = answers[Math.floor(Math.random() * answers.length)];
+        answer.textContent = result;
+
+        // Show broken heart on "Never"
+        heart.style.display = (result === "Never") ? "block" : "none";
+
+        // Healing particles on "Forever"
+        if (result === "Forever") {
+            createParticles(30);
+        } else {
+            particles.innerHTML = '';
+        }
+    }
+
+    function createParticles(count) {
+        particles.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDelay = Math.random() * 2 + 's';
+            p.style.background = `hsl(${Math.random() * 60 + 320}, 100%, 70%)`;
+            particles.appendChild(p);
+        }
+    }
+</script>
+
+</body>
 </html>
+      
+
+     
+
+      
+
+
+          
+
+         
+
