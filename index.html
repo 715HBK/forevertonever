@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Were Infinite</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+        body { 
+            font-family: 'Georgia', serif; 
+            line-height: 1.8; 
+            color: #444; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(45deg, #ffeef8, #fff5f9, #f8e1f0, #fad0e4, #ffe4f1);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container { max-width: 1200px; margin:0 auto; padding:1rem; }
+        header { 
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(12px);
+            color: #ff69b4; 
+            text-align:center; 
+            position:relative; 
+            min-height:300px; 
+            border-bottom: 3px solid #ff69b4;
+            overflow:hidden;
+        }
+        
+        .infinite-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5.5rem;
+            font-weight: 900;
+            color: #ff69b4;
+            text-shadow: 
+                -3px -3px 0 #fff, 3px -3px 0 #fff,
+                -3px 3px 0 #fff, 3px 3px 0 #fff,
+                -2px 0 0 #fff, 2px 0 0 #fff,
+                0 -2px 0 #fff, 0 2px 0 #fff;
+            letter-spacing: 4px;
+            white-space: nowrap;
+            z-index: 10;
+            cursor: pointer;
+            user-select: none;
+            animation: gentlePulse 4s infinite ease-in-out;
+            transition: transform 0.3s ease;
+            text-transform: uppercase;
+        }
+        .infinite-title:hover { transform: translate(-50%, -50%) scale(1.06); }
+        .infinite-title:active { transform: translate(-50%, -50%) scale(0.98); }
+
+        @keyframes gentlePulse {
+            0%, 100% { text-shadow: 
+                -3px -3px 0 #fff, 3px -3px 0 #fff,
+                -3px 3px 0 #fff, 3px 3px 0 #fff,
+                -2px 0 0 #fff, 2px 0 0 #fff,
+                0 -2px 0 #fff, 0 2px 0 #fff,
+
+                0 0 20px rgba(255,105,180,0.5); }
+            50% { text-shadow: 
+                -3px -3px 0 #fff, 3px -3px 0 #fff,
+                -3px 3px 0 #fff, 3px 3px 0 #fff,
+                -2px 0 0 #fff, 2px 0 0 #fff,
+                0 -2px 0 #fff, 0 2px 0 #fff,
+                0 0 40px rgba(255,105,180,0.8), 0 0 60px rgba(255,20,147,0.4); }
+        }
+
+        nav ul { list-style:none; display:flex; justify-content:center; gap:1.5rem; margin-top:1rem; }
+        nav a { color:#ff69b4; text-decoration:none; font-weight:600; transition:color .3s; }
+        nav a:hover { color:#d63384; }
+
+        h1 { font-size:2.2rem; margin-bottom:.5rem; opacity: 0.3; font-style:italic; color:#ff69b4; }
+        h2 { font-size:1.9rem; margin:1.5rem 0 .75rem; color:#ff69b4; text-align:center; }
+        p { margin-bottom:1rem; text-align:center; color:#666; }
+
+        .hero { 
+            background: linear-gradient(135deg, #ffd1dc, #ffb6c1); 
+            color:#fff; 
+            text-align:center; 
+            padding:5rem 1rem; 
+            border-radius: 20px;
+            margin: 2rem auto;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(255,105,180,0.2);
+        }
+
+        .input-section { 
+            margin: 3rem auto; 
+            max-width: 500px; 
+            text-align: center; 
+            display: flex;
+            justify-content: center;
+            gap: 0;
+        }
+        .input-section input {
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            width: 70%;
+            border: 3px solid #fff;
+            border-right: none;
+            border-radius: 16px 0 0 16px;
+            outline: none;
+            background: rgba(255,255,255,0.95);
+            color: #ff69b4;
+            font-weight: bold;
+        }
+        .input-section input::placeholder { color: #ff99cc; }
+        .input-section button {
+            padding: 16px 32px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 0 16px 16px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .input-section button:hover { background: #ff1493; transform: scale(1.05); }
+
+        .result { margin-top: 2rem; text-align: center; min-height: 80px; }
+        .broken-heart {
+            display: none;
+            max-width: 240px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(255,105,180,0.3);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* Healing Particles */
+        .healing-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+...
